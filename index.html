@@ -1,35 +1,808 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portföy - Ad Soyad</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Şira Eroğlu | Portfolio</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #050816;
+            --bg-soft: #0b1020;
+            --accent: #38bdf8;
+            --text: #e5e7eb;
+            --muted: #9ca3af;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
         }
-        h1 {
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 16px 48px;
+        }
+
+        /* NAVBAR */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: linear-gradient(to bottom, #050816ee, #050816dd, #05081600);
+            backdrop-filter: blur(8px);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            gap: 12px;
+        }
+
+        .logo {
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            font-size: 18px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 6px;
+        }
+
+        .lang-switch button {
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 999px;
+            border: 1px solid #1f2937;
+            background: #020617;
+            color: var(--muted);
+            cursor: pointer;
+        }
+
+        .lang-switch button.active {
+            border-color: var(--accent);
+            color: var(--text);
+        }
+
+        /* HERO */
+        .hero {
+            padding: 64px 16px 40px;
+        }
+
+        .hero-inner {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .hero-text {
+            flex: 1 1 260px;
+        }
+
+        .hero-kicker {
+            font-size: 14px;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+
+        .hero-title {
+            font-size: 34px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: var(--muted);
+            margin-bottom: 18px;
+        }
+
+        .hero-description {
+            font-size: 15px;
+            color: var(--muted);
+            margin-bottom: 24px;
+            max-width: 480px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .btn-primary,
+        .btn-ghost {
+            padding: 10px 18px;
+            border-radius: 999px;
+            font-size: 14px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #020617;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.1);
+        }
+
+        .btn-ghost {
+            border-color: #1f2937;
+            color: var(--muted);
+            background: #020617;
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--accent);
+            color: var(--text);
+        }
+
+        .hero-badge {
+            flex: 0 0 220px;
+            padding: 20px 18px;
+            border-radius: 18px;
+            background: radial-gradient(circle at top left, #38bdf81a, #0f172a);
+            border: 1px solid #1f2937;
+            font-size: 13px;
+        }
+
+        .hero-badge h3 {
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .hero-badge span {
+            color: var(--muted);
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 40px 16px 0;
+        }
+
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section-subtitle {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        /* ABOUT */
+        .about-text {
+            font-size: 15px;
+            color: var(--muted);
+            max-width: 720px;
+        }
+
+        /* SKILLS */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-pill {
+            padding: 6px 12px;
+            border-radius: 999px;
+            border: 1px solid #1f2937;
+            font-size: 13px;
+            color: var(--muted);
+            background: #020617;
+        }
+
+        /* PROJECTS */
+        .projects-grid {
+            display: grid;
+            gap: 18px;
+        }
+
+        .project-card {
+            border-radius: 16px;
+            border: 1px solid #1f2937;
+            padding: 16px 18px 14px;
+            background: var(--bg-soft);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .project-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .project-links a {
+            font-size: 13px;
+            color: var(--accent);
+            margin-left: 10px;
+        }
+
+        .project-desc {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 999px;
+            border: 1px solid #1f2937;
+        }
+
+        /* EDUCATION */
+        .timeline-item {
+            border-left: 2px solid #1f2937;
+            padding-left: 14px;
+            margin-bottom: 14px;
+        }
+
+        .timeline-heading {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .timeline-meta {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        /* CONTACT */
+        .contact-box {
+            border-radius: 16px;
+            border: 1px solid #1f2937;
+            padding: 18px;
+            max-width: 520px;
+            background: radial-gradient(circle at top left, #38bdf81a, #020617);
+        }
+
+        .contact-row {
+            font-size: 14px;
+            margin-bottom: 6px;
+            color: var(--muted);
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .contact-row span.value {
+            color: var(--text);
+        }
+
+        footer {
+            font-size: 12px;
+            color: #6b7280;
+            padding: 24px 16px 32px;
             text-align: center;
+        }
+
+        @media (min-width: 700px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero {
+                padding-top: 40px;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Merhaba, Ben Ad Soyad</h1>
-    <p>Bilgisayar Mühendisiyim. Yazılım geliştirme, problem çözme ve yeni teknolojiler öğrenme konusunda tutkuluyum.</p>
+<header>
+    <div class="container">
+        <nav>
+            <div class="logo">ŞİRA EROĞLU</div>
+            <div class="nav-links">
+                <a href="#about" data-i18n="nav_about">About</a>
+                <a href="#skills" data-i18n="nav_skills">Skills</a>
+                <a href="#projects" data-i18n="nav_projects">Projects</a>
+                <a href="#education" data-i18n="nav_education">Education</a>
+                <a href="#contact" data-i18n="nav_contact">Contact</a>
+            </div>
+            <div class="lang-switch">
+                <button data-lang="tr">TR</button>
+                <button data-lang="en" class="active">EN</button>
+            </div>
+        </nav>
+    </div>
+</header>
 
-    <h2>Projelerim</h2>
-    <ul>
-        <li><strong>Proje 1</strong> — Açıklama (GitHub linki)</li>
-        <li><strong>Proje 2</strong> — Açıklama (GitHub linki)</li>
-    </ul>
+<main class="container">
+    <!-- HERO -->
+    <section class="hero" id="top">
+        <div class="hero-inner">
+            <div class="hero-text">
+                <div class="hero-kicker" data-i18n="hero_kicker">
+                    Computer Engineer • Software Developer
+                </div>
+                <h1 class="hero-title" data-i18n="hero_title">Hi, I’m Şira 👋</h1>
+                <p class="hero-subtitle" data-i18n="hero_subtitle">
+                    New graduate computer engineer, interested in backend & full-stack development.
+                </p>
+                <p class="hero-description" data-i18n="hero_description">
+                    I enjoy writing clean code, solving problems and continuously learning. I like building
+                    real-world projects and taking responsibility in a team. I am currently focusing on
+                    <strong>TODO: your focus areas (e.g. Java backend, web applications)</strong>.
+                </p>
+                <div class="hero-actions">
+                    <a class="btn-primary" href="TODO-CV-LINK" target="_blank" rel="noreferrer"
+                       data-i18n="hero_cv_button">
+                        Download my CV
+                    </a>
+                    <a class="btn-ghost" href="https://github.com/siraeroglu" target="_blank" rel="noreferrer"
+                       data-i18n="hero_github_button">
+                        GitHub profile
+                    </a>
+                    <a class="btn-ghost" href="TODO-LINKEDIN-LINK" target="_blank" rel="noreferrer"
+                       data-i18n="hero_linkedin_button">
+                        LinkedIn
+                    </a>
+                </div>
+            </div>
+            <aside class="hero-badge">
+                <h3 data-i18n="hero_badge_title">What am I working on now?</h3>
+                <span data-i18n="hero_badge_body">
+                    • Improving my portfolio and GitHub projects.<br />
+                    • Deepening my knowledge in <strong>TODO: technology/framework you are learning</strong>.<br />
+                    • Actively applying to junior software developer positions.
+                </span>
+            </aside>
+        </div>
+    </section>
 
-    <h2>İletişim</h2>
-    <p>Email: mail@ornek.com</p>
-    <p>GitHub: github.com/kullaniciadi</p>
-    <p>LinkedIn: linkedin.com/in/kullaniciadi</p>
+    <!-- ABOUT -->
+    <section id="about">
+        <h2 class="section-title" data-i18n="section_about_title">About Me</h2>
+        <p class="section-subtitle" data-i18n="section_about_subtitle">
+            Who I am and what I want to work on.
+        </p>
+        <p class="about-text" data-i18n="about_text">
+            I studied Computer Engineering where I focused on algorithms, object-oriented programming and web
+            technologies. I am a curious developer who enjoys working in a team, taking responsibility and learning
+            new tools. I want to build my career around <strong>TODO: your focus areas (e.g. backend development, web
+            applications, data-driven products)</strong>.
+        </p>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+        <h2 class="section-title" data-i18n="section_skills_title">Technical Skills</h2>
+        <p class="section-subtitle" data-i18n="section_skills_subtitle">
+            Languages, technologies and tools I work with.
+        </p>
+
+        <h3 style="font-size:14px; margin-bottom:6px;" data-i18n="skills_langs_title">Languages</h3>
+        <div class="skills-grid" style="margin-bottom:10px;">
+            <span class="skill-pill">Python</span>
+            <span class="skill-pill">Java</span>
+            <span class="skill-pill">C / C++</span>
+            <span class="skill-pill">JavaScript</span>
+            <!-- TODO: update according to what you know -->
+        </div>
+
+        <h3 style="font-size:14px; margin-bottom:6px; margin-top:10px;" data-i18n="skills_web_title">
+            Web / Framework
+        </h3>
+        <div class="skills-grid" style="margin-bottom:10px;">
+            <span class="skill-pill">HTML5</span>
+            <span class="skill-pill">CSS3</span>
+            <span class="skill-pill">REST API</span>
+            <span class="skill-pill">TODO: React / Spring / .NET etc.</span>
+        </div>
+
+        <h3 style="font-size:14px; margin-bottom:6px; margin-top:10px;" data-i18n="skills_tools_title">
+            Tools & Other
+        </h3>
+        <div class="skills-grid">
+            <span class="skill-pill">Git & GitHub</span>
+            <span class="skill-pill">VS Code / IntelliJ</span>
+            <span class="skill-pill">Postman</span>
+            <span class="skill-pill">SQL</span>
+            <!-- add more if you like -->
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+        <h2 class="section-title" data-i18n="section_projects_title">Projects</h2>
+        <p class="section-subtitle" data-i18n="section_projects_subtitle">
+            Some of the projects I built while learning and shared as open source on GitHub.
+        </p>
+
+        <div class="projects-grid">
+            <!-- PROJECT 1 -->
+            <article class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title" data-i18n="project1_title">TODO: Project 1 title</h3>
+                    <div class="project-links">
+                        <a href="TODO-GITHUB-LINK" target="_blank" rel="noreferrer"
+                           data-i18n="project_github_link">GitHub</a>
+                    </div>
+                </div>
+                <p class="project-desc" data-i18n="project1_desc">
+                    Short description of the project. Explain in 2–3 sentences what the app does and what problem it
+                    solves. Mention the main features and what you learned while building it.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Flask</span>
+                    <span class="tag">REST API</span>
+                </div>
+            </article>
+
+            <!-- PROJECT 2 -->
+            <article class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title" data-i18n="project2_title">TODO: Project 2 title</h3>
+                    <div class="project-links">
+                        <a href="TODO-GITHUB-LINK" target="_blank" rel="noreferrer"
+                           data-i18n="project_github_link">GitHub</a>
+                    </div>
+                </div>
+                <p class="project-desc" data-i18n="project2_desc">
+                    A simple web application where users can create an account, log in and perform basic CRUD
+                    operations. Ideal to demonstrate backend logic, database integration and authentication.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Java</span>
+                    <span class="tag">Spring</span>
+                    <span class="tag">MySQL</span>
+                </div>
+            </article>
+
+            <!-- PROJECT 3 -->
+            <article class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title" data-i18n="project3_title">TODO: Project 3 title</h3>
+                    <div class="project-links">
+                        <a href="TODO-GITHUB-LINK" target="_blank" rel="noreferrer"
+                           data-i18n="project_github_link">GitHub</a>
+                    </div>
+                </div>
+                <p class="project-desc" data-i18n="project3_desc">
+                    Another project where you can showcase a mobile, desktop or data-oriented app. Highlight what
+                    makes it interesting and what technologies you used.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">Frontend</span>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+        <h2 class="section-title" data-i18n="section_education_title">Education</h2>
+        <p class="section-subtitle" data-i18n="section_education_subtitle">
+            My degree and important programs I attended.
+        </p>
+
+        <div class="timeline-item">
+            <div class="timeline-heading" data-i18n="edu1_title">TODO: University Name</div>
+            <div class="timeline-meta" data-i18n="edu1_meta">
+                B.Sc. in Computer Engineering • 20XX – 20XX
+            </div>
+            <p style="font-size:13px; color:var(--muted); margin-top:4px;" data-i18n="edu1_desc">
+                Highlight relevant courses such as Data Structures, Algorithms, Object-Oriented Programming,
+                Database Systems and Web Programming. Mention any graduation project or team project you are proud of.
+            </p>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-heading" data-i18n="edu2_title">TODO: Bootcamp / Online Course (Optional)</div>
+            <div class="timeline-meta" data-i18n="edu2_meta">
+                Topic: e.g. Java Backend • 20XX
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <h2 class="section-title" data-i18n="section_contact_title">Contact</h2>
+        <p class="section-subtitle" data-i18n="section_contact_subtitle">
+            Feel free to reach out if you’d like to work together or talk about my projects.
+        </p>
+
+        <div class="contact-box">
+            <p class="contact-row">
+                <span data-i18n="contact_email_label">Email:</span>
+                <span class="value">
+                    <a href="mailto:TODO-MAIL">TODO-MAIL</a>
+                </span>
+            </p>
+            <p class="contact-row">
+                <span data-i18n="contact_github_label">GitHub:</span>
+                <span class="value">
+                    <a href="https://github.com/siraeroglu" target="_blank" rel="noreferrer">
+                        github.com/siraeroglu
+                    </a>
+                </span>
+            </p>
+            <p class="contact-row">
+                <span data-i18n="contact_linkedin_label">LinkedIn:</span>
+                <span class="value">
+                    <a href="TODO-LINKEDIN-LINK" target="_blank" rel="noreferrer">
+                        linkedin.com/in/TODO
+                    </a>
+                </span>
+            </p>
+            <p class="contact-row">
+                <span data-i18n="contact_cv_label">CV:</span>
+                <span class="value">
+                    <a href="TODO-CV-LINK" target="_blank" rel="noreferrer">
+                        View as PDF
+                    </a>
+                </span>
+            </p>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <span data-i18n="footer_text">
+        © <span id="year"></span> Şira Eroğlu. All rights reserved.
+    </span>
+</footer>
+
+<script>
+    // auto year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // translations
+    const translations = {
+        en: {
+            nav_about: "About",
+            nav_skills: "Skills",
+            nav_projects: "Projects",
+            nav_education: "Education",
+            nav_contact: "Contact",
+
+            hero_kicker: "Computer Engineer • Software Developer",
+            hero_title: "Hi, I’m Şira 👋",
+            hero_subtitle:
+                "New graduate computer engineer, interested in backend & full-stack development.",
+            hero_description:
+                "I enjoy writing clean code, solving problems and continuously learning. I like building real-world projects and taking responsibility in a team. I am currently focusing on <strong>TODO: your focus areas (e.g. Java backend, web applications)</strong>.",
+            hero_cv_button: "Download my CV",
+            hero_github_button: "GitHub profile",
+            hero_linkedin_button: "LinkedIn",
+            hero_badge_title: "What am I working on now?",
+            hero_badge_body:
+                "• Improving my portfolio and GitHub projects.<br />" +
+                "• Deepening my knowledge in <strong>TODO: technology/framework you are learning</strong>.<br />" +
+                "• Actively applying to junior software developer positions.",
+
+            section_about_title: "About Me",
+            section_about_subtitle: "Who I am and what I want to work on.",
+            about_text:
+                "I studied Computer Engineering where I focused on algorithms, object-oriented programming and web technologies. I am a curious developer who enjoys working in a team, taking responsibility and learning new tools. I want to build my career around <strong>TODO: your focus areas (e.g. backend development, web applications, data-driven products)</strong>.",
+
+            section_skills_title: "Technical Skills",
+            section_skills_subtitle:
+                "Languages, technologies and tools I work with.",
+            skills_langs_title: "Languages",
+            skills_web_title: "Web / Framework",
+            skills_tools_title: "Tools & Other",
+
+            section_projects_title: "Projects",
+            section_projects_subtitle:
+                "Some of the projects I built while learning and shared as open source on GitHub.",
+            project1_title: "TODO: Project 1 title",
+            project1_desc:
+                "Short description of the project. Explain in 2–3 sentences what the app does and what problem it solves. Mention the main features and what you learned while building it.",
+            project2_title: "TODO: Project 2 title",
+            project2_desc:
+                "A simple web application where users can create an account, log in and perform basic CRUD operations. Ideal to demonstrate backend logic, database integration and authentication.",
+            project3_title: "TODO: Project 3 title",
+            project3_desc:
+                "Another project where you can showcase a mobile, desktop or data-oriented app. Highlight what makes it interesting and what technologies you used.",
+            project_github_link: "GitHub",
+
+            section_education_title: "Education",
+            section_education_subtitle:
+                "My degree and important programs I attended.",
+            edu1_title: "TODO: University Name",
+            edu1_meta: "B.Sc. in Computer Engineering • 20XX – 20XX",
+            edu1_desc:
+                "Highlight relevant courses such as Data Structures, Algorithms, Object-Oriented Programming, Database Systems and Web Programming. Mention any graduation project or team project you are proud of.",
+            edu2_title: "TODO: Bootcamp / Online Course (Optional)",
+            edu2_meta: "Topic: e.g. Java Backend • 20XX",
+
+            section_contact_title: "Contact",
+            section_contact_subtitle:
+                "Feel free to reach out if you’d like to work together or talk about my projects.",
+            contact_email_label: "Email:",
+            contact_github_label: "GitHub:",
+            contact_linkedin_label: "LinkedIn:",
+            contact_cv_label: "CV:",
+            footer_text: "© <span id=\"year\"></span> Şira Eroğlu. All rights reserved."
+        },
+        tr: {
+            nav_about: "Hakkımda",
+            nav_skills: "Beceriler",
+            nav_projects: "Projeler",
+            nav_education: "Eğitim",
+            nav_contact: "İletişim",
+
+            hero_kicker: "Bilgisayar Mühendisi • Yazılım Geliştirici",
+            hero_title: "Merhaba, ben Şira 👋",
+            hero_subtitle:
+                "Yeni mezun bilgisayar mühendisi, backend ve full-stack geliştirmeye meraklı.",
+            hero_description:
+                "Temiz kod yazmayı, problem çözmeyi ve sürekli öğrenmeyi seviyorum. Gerçek hayat problemlerine yönelik projeler geliştirmeye ve ekip içinde sorumluluk almaya odaklanıyorum. Şu anda özellikle <strong>TODO: odak alanların (örn. Java backend, web uygulamaları)</strong> üzerinde yoğunlaşıyorum.",
+            hero_cv_button: "CV’mi indir",
+            hero_github_button: "GitHub profilim",
+            hero_linkedin_button: "LinkedIn",
+            hero_badge_title: "Şu anda ne üzerinde çalışıyorum?",
+            hero_badge_body:
+                "• Portföyümü ve GitHub projelerimi geliştiriyorum.<br />" +
+                "• <strong>TODO: öğrendiğin teknoloji / framework</strong> konusunda kendimi derinleştiriyorum.<br />" +
+                "• Aktif olarak junior yazılım geliştirici pozisyonlarına başvuruyorum.",
+
+            section_about_title: "Hakkımda",
+            section_about_subtitle:
+                "Kısaca kimim ve hangi alanlarda çalışmak istiyorum?",
+            about_text:
+                "Bilgisayar mühendisliği eğitimim boyunca algoritmalar, nesne yönelimli programlama ve web teknolojileri üzerine yoğunlaştım. Ekip çalışmasına yatkın, sorumluluk almayı seven ve yeni araçlar öğrenmekten keyif alan bir geliştiriciyim. Kariyerimi özellikle <strong>TODO: odak alanların (örn. backend geliştirme, web uygulamaları, veri odaklı projeler)</strong> üzerine kurmak istiyorum.",
+
+            section_skills_title: "Teknik Beceriler",
+            section_skills_subtitle:
+                "Kullandığım diller, teknolojiler ve araçlar.",
+            skills_langs_title: "Diller",
+            skills_web_title: "Web / Framework",
+            skills_tools_title: "Araçlar & Diğer",
+
+            section_projects_title: "Projeler",
+            section_projects_subtitle:
+                "Öğrenirken geliştirdiğim ve GitHub’da açık kaynak olarak paylaştığım bazı projeler.",
+            project1_title: "TODO: Proje 1 adı",
+            project1_desc:
+                "Projenin ne yaptığını 2–3 cümleyle açıkla. Uygulama hangi problemi çözüyor, temel özellikleri neler ve geliştirirken neler öğrendin?",
+            project2_title: "TODO: Proje 2 adı",
+            project2_desc:
+                "Kullanıcıların hesap oluşturup giriş yapabildiği, temel CRUD işlemlerinin bulunduğu basit bir web uygulaması. Backend mantığını, veritabanı entegrasyonunu ve kimlik doğrulamayı göstermek için ideal.",
+            project3_title: "TODO: Proje 3 adı",
+            project3_desc:
+                "Mobil, masaüstü veya veri odaklı bir projeni sergileyebileceğin bir uygulama. Neden ilginç olduğunu ve hangi teknolojileri kullandığını vurgula.",
+            project_github_link: "GitHub",
+
+            section_education_title: "Eğitim",
+            section_education_subtitle:
+                "Lisans eğitimim ve katıldığım önemli programlar.",
+            edu1_title: "TODO: Üniversite Adı",
+            edu1_meta: "Bilgisayar Mühendisliği Lisans • 20XX – 20XX",
+            edu1_desc:
+                "Veri Yapıları, Algoritmalar, Nesne Yönelimli Programlama, Veritabanı Sistemleri ve Web Programlama gibi dersleri vurgulayabilirsin. Ayrıca bitirme projesi veya gurur duyduğun takım projelerinden bahsedebilirsin.",
+            edu2_title: "TODO: Bootcamp / Online Eğitim (Opsiyonel)",
+            edu2_meta: "Konu: örn. Java Backend • 20XX",
+
+            section_contact_title: "İletişim",
+            section_contact_subtitle:
+                "Birlikte çalışmak veya projelerim hakkında konuşmak istersen benimle iletişime geçebilirsin.",
+            contact_email_label: "E-posta:",
+            contact_github_label: "GitHub:",
+            contact_linkedin_label: "LinkedIn:",
+            contact_cv_label: "CV:",
+            footer_text: "© <span id=\"year\"></span> Şira Eroğlu. Tüm hakları saklıdır."
+        }
+    };
+
+    function setLanguage(lang) {
+        const elements = document.querySelectorAll("[data-i18n]");
+        elements.forEach((el) => {
+            const key = el.getAttribute("data-i18n");
+            const text = translations[lang][key];
+            if (text) {
+                el.innerHTML = text;
+            }
+        });
+
+        document.querySelectorAll(".lang-switch button").forEach((btn) => {
+            btn.classList.toggle("active", btn.dataset.lang === lang);
+        });
+
+        // keep selected language
+        localStorage.setItem("siteLang", lang);
+
+        // year text may have been overwritten in footer_text, fix year again
+        const yearSpan = document.getElementById("year");
+        if (yearSpan) {
+            yearSpan.textContent = new Date().getFullYear();
+        }
+    }
+
+    document.querySelectorAll(".lang-switch button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            setLanguage(btn.dataset.lang);
+        });
+    });
+
+    const savedLang = localStorage.getItem("siteLang") || "en";
+    setLanguage(savedLang);
+</script>
 </body>
 </html>
